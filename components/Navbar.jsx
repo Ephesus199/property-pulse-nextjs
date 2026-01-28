@@ -168,6 +168,7 @@ function Navbar() {
                       <Image
                         className="h-8 w-8 rounded-full"
                         src={session.user?.image}
+                        quality={100}
                         alt=""
                         width={8}
                         height={8}

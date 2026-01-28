@@ -3,31 +3,34 @@ import Link from 'next/link'
 import {FaBed, FaBath,FaRulerCombined, FaMoneyBill, FaMapMarker} from 'react-icons/fa'
 function PropertyCard({property}) {
 
-    function getRateDisplay(){
-        const {rates} = property;
-        if(rates.monthly){
-            return `$${rates.monthly.toLocaleString()}/mo`
-        }else if(rates.weekly){
-            return `$${rates.weekly.toLocaleString()}/wk`
-        }else if(rates.nightly){
-            return `$${rates.nightly.toLocaleString()}/night`
-        }
-
+  function getRateDisplay(){
+    const rates = property?.rates || {};
+    if(rates.monthly){
+      return `$${Number(rates.monthly).toLocaleString()}/mo`
+    }else if(rates.weekly){
+      return `$${Number(rates.weekly).toLocaleString()}/wk`
+    }else if(rates.nightly){
+      return `$${Number(rates.nightly).toLocaleString()}/night`
     }
-    return (
-        <div className="rounded-xl shadow-sm shadow-white relative">
-            <Image
-              src={`/images/properties/${property.images[0]}`}
-              alt=""
-              className="w-full h-auto rounded-t-xl"
-              width='0'
-              height='0'
-              sizes='100vw'
-            />
+    return ""
+
+  }
+  const imageFile = property?.images && property.images.length>0 ? property.images[0] : null
+  const imageSrc = imageFile ? `/images/properties/${imageFile}` : `/images/placeholder.png`
+  return (
+    <div className="rounded-xl shadow-sm shadow-white relative">
+      <Image
+        src={imageSrc}
+        alt={property?.name || 'property image'}
+        className="w-full h-auto rounded-t-xl"
+        width={400}
+        height={250}
+        sizes='100vw'
+      />
             <div className="p-4">
               <div className="text-left md:text-center lg:text-left mb-6">
-                <div className="text-gray-600">{property.type}</div>
-                <h3 className="text-xl font-bold">{property.name}</h3>
+                <div className="text-gray-600">{property?.type}</div>
+                <h3 className="text-xl font-bold">{property?.name}</h3>
               </div>
               <h3
                 className="absolute top-2.5 right-2.5 bg-white px-4 py-2 rounded-lg text-blue-500 font-bold text-right md:text-center lg:text-right"
@@ -37,16 +40,16 @@ function PropertyCard({property}) {
 
               <div className="flex justify-center gap-4 text-gray-500 mb-4">
                 <p className='flex gap-1 items-center'>
-                  <FaBed className="md:hidden lg:inline" /> {property.beds} {" "}
+                  <FaBed className="md:hidden lg:inline" /> {property?.beds ?? 0} {" "}
                   <span className="md:hidden lg:inline">Beds</span>
                 </p>
                 <p className='flex gap-1 items-bottom'>
-                  <FaBath className="md:hidden lg:inline" /> {property.baths} {" "}
+                  <FaBath className="md:hidden lg:inline" /> {property?.baths ?? 0} {" "}
                   <span className="md:hidden lg:inline">Baths</span>
                 </p>
                 <p>
                   <FaRulerCombined className="md:hidden lg:inline" />
-                  {property.square_feet} <span className=" lg:inline">sqft</span>
+                  {property?.square_feet ?? 0} <span className=" lg:inline">sqft</span>
                 </p>
               </div>
 
@@ -62,10 +65,10 @@ function PropertyCard({property}) {
               <div className="flex flex-col lg:flex-row justify-between mb-4">
                 <div className="flex align-middle gap-2 mb-4 lg:mb-0">
                  <FaMapMarker className='text-orange-700 mt-1 ' />
-                  <span className="text-orange-700"> {property.location.city} {property.location.street} </span>
+                  <span className="text-orange-700"> {property?.location?.city || ''} {property?.location?.street || ''} </span>
                 </div>
                 <Link
-                  href={`properties/${property._id}`}
+                  href={`/properties/${property?._id?.toString?.() || ''}`}
                   className="h-9 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm"
                 >
                   Details

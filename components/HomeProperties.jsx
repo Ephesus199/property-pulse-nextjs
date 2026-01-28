@@ -5,7 +5,14 @@ import connectDB from "@/config/database";
 import Property from "@/models/Property";
 async function HomeProperties() {
     await connectDB()
+//     console.log("DB NAME:", Property.db.name);
+// console.log(
+//   "COLLECTIONS:",
+//   await Property.db.db.listCollections().toArray()
+// );
+
     const recentProperties = await Property.find({}).sort({createdAt:-1}).limit(3).lean()
+    console.log(recentProperties)
   return  (
     <>
   <section className='px-4 scroll-py-6'>
