@@ -1,5 +1,8 @@
 
+import ProfileProperties from "@/components/ProfileProperties";
 import connectDB from "@/config/database"
+import Property from "@/models/Property";
+import { convertToSerializableObjects } from "@/utils/convertToObjects";
 import { getSessionUser } from "@/utils/getSessionUser";
 import Image from "next/image";
 import Link from "next/link"
@@ -12,6 +15,10 @@ async function page() {
         throw new Error("Unauthorized Access")
     }
     console.log("Session User in Profile Page:", sessionUser);
+    const propertyDocs = await Property.find({owner:userId}).lean();
+    console.log("Property Documents from DB:", propertyDocs);
+    const propertiesOwnedbyUser = propertyDocs.map(convertToSerializableObjects);
+    console.log("Properties Owned by User:", propertiesOwnedbyUser);
     
     return (
            <section className="bg-blue-50">
@@ -43,7 +50,7 @@ async function page() {
 
             <div className="md:w-3/4 md:pl-4">
               <h2 className="text-xl font-semibold mb-4 text-black">Your Listings</h2>
-              <div className="mb-10">
+              {/* <div className="mb-10">
                 <Link href="/property">
                   <img
                     className="h-32 w-full rounded-md object-cover"
@@ -69,34 +76,8 @@ async function page() {
                     Delete
                   </button>
                 </div>
-              </div>
-              <div className="mb-10">
-                <Link href="/property">
-                  <img
-                    className="h-32 w-full rounded-md object-cover"
-                    src="/images/properties/b1.jpg"
-                    alt="Property 2"
-                  />
-                </Link>
-                <div className="mt-2">
-                  <p className="text-lg font-semibold text-black">Property Title 2</p>
-                  <p className="text-black">Address: 456 Elm St</p>
-                </div>
-                <div className="mt-2">
-                  <Link
-                    href="/add-property"
-                    className="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
-                    type="button"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
+              </div> */}
+              <ProfileProperties propertiesOwnedbyUser={propertiesOwnedbyUser} />
             </div>
           </div>
         </div>

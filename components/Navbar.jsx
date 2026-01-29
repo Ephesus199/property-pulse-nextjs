@@ -5,7 +5,7 @@ import Link from "next/link";
 import logo from "@/assets/images/logo-white.png";
 import profileDefault from "@/assets/images/profile.png";
 import { FaGoogle } from "react-icons/fa";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { getProviders, signIn, signOut, useSession } from "next-auth/react";
 function Navbar() {
   const { data: session } = useSession();
@@ -23,6 +23,7 @@ function Navbar() {
     setAuthProvider();
   }, []);
   console.log(session);
+  
 
   return (
     <div>
@@ -207,7 +208,10 @@ function Navbar() {
                         Saved Properties
                       </Link>
                       <button
-                        onClick={() => signOut()}
+                        onClick={() => {
+                          signOut();
+                         
+                        }}
                         className="block px-4 py-2 text-sm text-gray-700"
                         role="menuitem"
                         tabIndex="-1"

@@ -24,7 +24,7 @@ export async function addProperty(formData) {
             street:formData.get("location.street"),
             city:formData.get("location.city"),
             state:formData.get("location.state"),
-            zipcode:formData.get("location.zipcode"),
+            zipCode:formData.get("location.zipcode"),
         },
         beds:formData.get('beds'),
         baths:formData.get('baths'),
