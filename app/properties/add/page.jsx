@@ -1,7 +1,9 @@
+import PropertyAddForm from "@/components/PropertyAddForm"
+
 function page() {
     return (
-        <div>
-            <h1>Add New Properties</h1>
+        <div className="text-black border-0">
+           <PropertyAddForm />
         </div>
     )
 }

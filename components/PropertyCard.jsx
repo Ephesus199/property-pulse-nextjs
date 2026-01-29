@@ -15,12 +15,14 @@ function PropertyCard({property}) {
     return ""
 
   }
-  const imageFile = property?.images && property.images.length>0 ? property.images[0] : null
-  const imageSrc = imageFile ? `/images/properties/${imageFile}` : `/images/placeholder.png`
+  console.log(property.images[0]);
+  const imageURL = property?.images[0].includes('http') ? property.images[0] : '/images/properties/' + property.images[0];
+ 
+
   return (
     <div className="rounded-xl shadow-sm shadow-white relative">
       <Image
-        src={imageSrc}
+        src={imageURL}
         alt={property?.name || 'property image'}
         className="w-full h-auto rounded-t-xl"
         width={400}

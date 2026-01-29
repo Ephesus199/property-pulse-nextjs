@@ -165,14 +165,16 @@ function Navbar() {
                     >
                       <span className="absolute -inset-1.5"></span>
                       <span className="sr-only">Open user menu</span>
+                      <div className="relative w-8 h-8 ">
                       <Image
-                        className="h-8 w-8 rounded-full"
+                        className="h-8 w-8 rounded-full object-cover"
                         src={session.user?.image}
                         quality={100}
                         alt=""
-                        width={8}
-                        height={8}
+      
+                        fill
                       />
+                      </div>
                     </button>
                   </div>
 
@@ -191,6 +193,7 @@ function Navbar() {
                         role="menuitem"
                         tabIndex="-1"
                         id="user-menu-item-0"
+                        onClick={()=>setIsProfileMenuOpen(false)}
                       >
                         Your Profile
                       </Link>

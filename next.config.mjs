@@ -1,15 +1,31 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
+   experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb', // or '5mb', '20mb'
+    },
+  },
+    images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
-        port: '',
-        pathname: '/a/ACg8ocKstelucw_d5IWzCpzkcTkfDvBUQOkpn72k_9q1iaOtmQ4l2AMo=s96-c/**',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
       },
     ],
   },
+  //   images: {
+  //   domains: [
+  //     'lh3.googleusercontent.com',
+  //     'res.cloudinary.com',
+  //   ],
+  // },
+
 };
 
 export default nextConfig;
