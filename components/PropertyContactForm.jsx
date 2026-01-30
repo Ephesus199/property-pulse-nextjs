@@ -1,9 +1,35 @@
+'use client';
+import { useActionState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
+import {addMessage} from '@/app/action/addMessage.js';
 import {FaPaperPlane} from 'react-icons/fa';
+import SubmitMessageButton from './SubmitMessageButton';
 function PropertyContactForm({property}) {
-    return (
+  const {data:session}=useSession();
+  const [state, formAction]  = useActionState(addMessage,{})
+
+ 
+
+  useEffect(()=>{
+    if(state?.error){
+      toast.error(state.error);
+    }
+    if(state?.submitted){
+      toast.success("Your message has been sent successfully.");
+    }
+  },[state])
+  if(state?.submitted){
+
+   
+    return <p className="text-green-600 font-semibold">Your message has been sent successfully.</p>
+  }
+    return session&& (
         <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-bold mb-6">Contact Property Manager</h3>
-              <form>
+              <form action={formAction} className="space-y-4">
+                <input type="hidden" id='property' name='property' defaultValue={property._id} />
+                <input type="hidden" id='recipent' name="recipient" defaultValue={property.owner} />
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -54,24 +80,19 @@ function PropertyContactForm({property}) {
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="message"
+                    htmlFor="body"
                   >
                     Message:
                   </label>
                   <textarea
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 h-44 focus:outline-none focus:shadow-outline"
-                    id="message"
-                    name="message"
+                    id="body"
+                    name="body"
                     placeholder="Enter your message"
                   ></textarea>
                 </div>
                 <div>
-                  <button
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center"
-                    type="submit"
-                  >
-                    <FaPaperPlane className='mr-2' /> Send Message
-                  </button>
+                  <SubmitMessageButton />
                 </div>
               </form>
             </div>

@@ -21,6 +21,7 @@ function PropertyCard({property}) {
 
   return (
     <div className="rounded-xl shadow-sm shadow-white relative">
+      <Link href={`properties/${property._id}`} >
       <Image
         src={imageURL}
         alt={property?.name || 'property image'}
@@ -29,6 +30,7 @@ function PropertyCard({property}) {
         height={250}
         sizes='100vw'
       />
+      </Link>
             <div className="p-4">
               <div className="text-left md:text-center lg:text-left mb-6">
                 <div className="text-gray-600">{property?.type}</div>

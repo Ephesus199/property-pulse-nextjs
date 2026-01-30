@@ -3,7 +3,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
+import { GlobalProvider } from "@/context/GlobalContext";
 import { ToastContainer } from "react-toastify";
+import 'photoswipe/dist/photoswipe.css'
 import 'react-toastify/dist/ReactToastify.css';
 const geistSans = Montserrat({
   variable: "--font-Montserrat-sans",
@@ -24,6 +26,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <AuthProvider>
+      <GlobalProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -33,7 +36,8 @@ export default function RootLayout({ children }) {
         <Footer />
         <ToastContainer />
       </body>
-    </html>
+        </html>
+        </GlobalProvider>
     </AuthProvider>
   );
 }
