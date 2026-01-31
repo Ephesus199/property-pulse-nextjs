@@ -13,8 +13,10 @@ import { convertToSerializableObjects } from "@/utils/convertToObjects";
 import PropertyContactForm from "@/components/PropertyContactForm";
 async function page({ params }) {
   await connectDB();
-  const id = await params.id;
+  const {id} = await params;
+  console.log(id)
   const propertyDoc = await Property.findById(id).lean();
+  console.log(propertyDoc)
   const property = convertToSerializableObjects(propertyDoc);
   
 
