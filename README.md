@@ -152,10 +152,4 @@ Important files
 
 This repository does not include a license by default. Add one if you plan to share publicly.
 
----
 
-If you'd like, I can also:
-
-- add a `.env.example` file,
-- run the linter and fix formatting, or
-- prepare deployment steps for Vercel.
